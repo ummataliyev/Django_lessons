@@ -1,0 +1,16 @@
+djohnummataliyev@gmail.com
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} User Registration {% endblock title %}
+
+{% block content %}
+
+<h1 class="text-center">Registration of new users</h1>
+<p class="text-center">Fill out the form below to register:</p>
+<form style="display:inline-block;"  method="post">{% csrf_token %}
+    {{ user_form.as_p }}
+    <button class="text-center" type="submit">Register</button>
+</form>
+
+{% endblock content %}

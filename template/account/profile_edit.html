@@ -1,0 +1,17 @@
+djohnummataliyev@gmail.com
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} Change user information {% endblock title %}
+
+{% block content %}
+
+<h1 class="text-center">Change user information </h1>
+<p class="text-center">You can change your information using the form below:</p>
+<form style="display:inline-block;"  method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p}}
+    <button class="text-center" type="submit">Save changes</button>
+</form>
+
+{% endblock content %}

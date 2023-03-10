@@ -1,0 +1,28 @@
+{% extends 'news/base.html' %}
+
+{% block title %} Admin's page {% endblock title %}
+
+{% block content %}
+<h1 class="text-center">Admin page</h1>
+<h3 class="text-center">All admins</h3>
+<table class="table table-bordered table-responsive table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Username</th>
+    </tr>
+    {% for user in admin_users %}
+    <tr>
+        <td>{{ user.first_name}}</td>
+        <td>{{ user.last_name}}</td>
+        <td>{{ user.username}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<h4>
+    <a href="{% url 'news_create' %}" class="text-primary">
+        + Add news
+    </a>
+</h4>
+
+{% endblock content %}

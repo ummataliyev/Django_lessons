@@ -1,0 +1,18 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} Login page {% endblock title %}
+
+{% block content %}
+    
+    <h2 class="text-center">Sign In</h2>
+    <p class="text-center">Please register to access the site !</p>
+    <h5 class="text-center">To reset the password click it  <a href="{% url 'password_reset' %}" class="text-danger">Reset</a></h5>
+    
+    <form method="post" class="text-center">{% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit" class="text-center">Login</button>
+    </form><hr>
+    <h4 class="text-center">If you do not have profile you can <a href="{% url 'user_register' %}" style="color: red;">Register now</a></h4>
+
+{% endblock content %}

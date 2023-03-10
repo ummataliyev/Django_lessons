@@ -1,0 +1,67 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}User profile{% endblock title %}
+
+{% block content %}
+
+<style>
+.profile-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-info ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 50%;
+}
+
+.profile-info li {
+  margin-bottom: 10px;
+}
+
+.profile-info img {
+  width: 30%;
+  float: right;
+}
+</style>
+
+<h3 class="text-center">Welcome, {{ user.username }} </h3>
+<h3 class="text-center"><a href="{% url 'logout' %}" class="text-danger">Log out</a> </h3>
+
+<div class="profile-info">
+  <ul>
+    <li>
+      <label style="display:inline-block; width:120px;">Name:</label>
+      <input value="{{ user.first_name }}" readonly placeholder="not included">
+    </li>
+    <li>
+      <label style="display:inline-block; width:120px;">Surname:</label>
+      <input value="{{ user.last_name }}" readonly placeholder="not included">
+    </li>
+    <li>
+      <label style="display:inline-block; width:120px;">Username:</label>
+      <input value="{{ user.username }}" readonly placeholder="not included">
+    </li>
+    <li>
+      <label style="display:inline-block; width:120px;">Email:</label>
+      <input value="{{ user.email }}" readonly placeholder="not included">
+    </li>
+    <li>
+      <label style="display:inline-block; width:120px;">Date of birth:</label>
+      <span>{{ profile.date_of_birth }}</span>
+    </li>
+  </ul>
+  <img src="{{ profile.photo.url }}">
+</div>
+
+<h4 class="text-left">
+  <a href="{% url 'password_change' %}" style="color: red;">Change password</a> |
+  <a href="{% url 'edit_user_information' %}" class="text-left"style="color: rgba(82, 82, 202, 0.705);">Edit profile</a>
+</h4>
+
+{% endblock content %}

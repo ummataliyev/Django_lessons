@@ -1,0 +1,33 @@
+{% extends 'news/base.html' %}
+
+{% block title %} Search Results - My Site {% endblock %}
+
+{% block content %}
+<h3 class="text-center">Search Results</h3>
+{% if all_news %}
+<div class="container">
+    {% for news in all_news %}
+    {% if forloop.counter0|divisibleby:3 %}
+    <div class="row">
+    {% endif %}
+        <div class="col-sm-4">
+            <a href="{{ news.get_absolute_url }}">
+                <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width:100%">
+                <h4>{{ news.title|truncatewords:8 }}</h4>
+            </a>
+        </div>
+    {% if forloop.counter|divisibleby:3 or forloop.last %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% else %}
+<p>No results found.</p>
+{% endif %}
+<style>
+    .content {
+        padding: 0 15px;
+        margin: 0 -15px;
+    }
+</style>
+{% endblock %}

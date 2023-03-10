@@ -1,0 +1,130 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+
+{% block title %} {{ news.title }} {% endblock title %}
+
+{% block content %}
+
+<h2> {{ news.title }} </h2>
+<h5> {{ news.publish_time }} | <i class="fa fa-eye aria-hidden="true"></i> {% get_hit_count for news %} </h5>
+<img src="{{ news.image.url }}">
+<p> {{ news.body}} </p>
+
+{% if request.user.is_authenticated and request.user.is_superuser %}
+<div class="card-footer text-center">
+    <a href="{% url 'news_update' news.slug %}">Edit</a>|
+    <a href="{% url 'news_delete' news.slug %}">Delete</a>
+</div>
+
+{% endif %}<br>
+
+<style>
+    .comments {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .comments p {
+        margin: 0;
+    }
+
+    .comments .font-weight-bold {
+        font-size: 1.1rem;
+    }
+
+    .comments .text-muted {
+        font-size: 0.9rem;
+    }
+
+    .comment-form label {
+        font-weight: bold;
+    }
+
+    .comment-form input[type="text"],
+    .comment-form textarea {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 8px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .comment-form button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+    }
+
+    .comment-form button[type="submit"]:hover {
+        background-color: #0069d9;
+    }
+</style>
+
+{% for comment in comments %}
+<div class="comments">
+    <p class="font-weight-bold">
+        {{ comment.user }}
+        <span class="text-muted font-weight-normal"> {{ comment.created_time }} </span>
+    </p>
+    {{ comment.body | linebreaks }}
+</div>
+{% endfor %}
+
+{% if user.is_authenticated %}
+<div class="col-md-8 card mb-4 mt-3">
+    <div class="card-body comment-form">
+        <h3>Leave a Comment</h3>
+        <form method="post" style="margin-top: 1.3em;">{% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
+{% else %}
+<style>
+    .card-body p {
+        margin-bottom: 10px;
+    }
+
+    .card-body a {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .card-body a.signup {
+        background-color: #007bff;
+    }
+
+    .card-body a.signup:hover {
+        background-color: #0069d9;
+    }
+
+    .card-body a.login {
+        background-color: #ccc;
+        color: #000;
+    }
+
+    .card-body a.login:hover {
+        background-color: #b3b3b3;
+    }
+</style>
+
+<div class="card-body">
+    <p>Only registered users can leave comments.</p>
+    <p>To leave a comment, please <a href="{% url 'user_register'%}" class="signup">Sign Up</a>or<a href="{% url 'login' %}" class="login">Login</a>.</p>
+</div>
+
+{% endif %}
+
+{% endblock %}

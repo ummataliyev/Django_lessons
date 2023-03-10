@@ -1,0 +1,14 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} Log out page {% endblock title %}
+
+{% block content %}
+
+
+    <h2 class="text-center">Log Out</h2>
+    <p class="text-center">You have left the website !</p><hr>
+    <p class="text-center"><a href="{% url 'login' %}">Log in again</a></p>
+
+
+{% endblock content %}
