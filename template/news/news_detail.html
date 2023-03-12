@@ -7,7 +7,7 @@
 {% block content %}
 
 <h2> {{ news.title }} </h2>
-<h5> {{ news.publish_time }} | <i class="fa fa-eye aria-hidden="true"></i> {% get_hit_count for news %} </h5>
+<h5> {{ news.publish_time }} | <i class="fa fa-eye aria-hidden=" true"></i> {% get_hit_count for news %} | Comments: {{ comment_count }} </h5>
 <img src="{{ news.image.url }}">
 <p> {{ news.body}} </p>
 
@@ -18,6 +18,7 @@
 </div>
 
 {% endif %}<br>
+<h3>This post has {{ comment_count }} comments</h3>
 
 <style>
     .comments {
@@ -122,7 +123,8 @@
 
 <div class="card-body">
     <p>Only registered users can leave comments.</p>
-    <p>To leave a comment, please <a href="{% url 'user_register'%}" class="signup">Sign Up</a>or<a href="{% url 'login' %}" class="login">Login</a>.</p>
+    <p>To leave a comment, please <a href="{% url 'user_register'%}" class="signup">Sign Up</a>or<a
+            href="{% url 'login' %}" class="login">Login</a>.</p>
 </div>
 
 {% endif %}
